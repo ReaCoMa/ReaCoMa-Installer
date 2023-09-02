@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="ReaCoMa Installer" commit="ed9fb27a41a098259e498ef01f90b1335264a392">
+  <category name="scripts">
+    <reapack name="ReaCoMa Installer.lua" type="script" desc="ReaCoMa Installer">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 ReaCoMa Installer\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 A ReaPacka page that provides a script to install ReaCoMa automatically.\par}
+}
+]]></description>
+      </metadata>
+      <version name="0.0.1" author="James Bradbury" time="2023-09-02T20:36:49Z">
+        <source main="main">https://github.com/jamesb93/ReaCoMa-Installer/raw/ed9fb27a41a098259e498ef01f90b1335264a392/scripts/ReaCoMa%20Installer.lua</source>
+      </version>
+    </reapack>
+  </category>
+</index>

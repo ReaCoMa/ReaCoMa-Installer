@@ -105,13 +105,13 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 		'ReaCoMa Installation',
 		0
 	)
-else if os == 'Win64' then
+elseif os == 'Win64' then
 	reaper.ShowMessageBox(
 		'This installation method is not yet supported on Windows.',
 		'ReaCoMa Installation',
 		'0'
 	)
-else if os == 'Other' then
+elseif os == 'Other' then
 	reaper.ShowMessageBox(
 		'This installation method is not yet supported on Linux.',
 		'ReaCoMa Installation',

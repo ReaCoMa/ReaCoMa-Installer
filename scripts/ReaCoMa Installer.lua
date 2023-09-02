@@ -34,6 +34,12 @@ function splitLine(string)
     return t
 end
 
+function getTempDirUnix()
+	local handle = io.popen('echo $TMPDIR')
+	local result = handle:read('*a')
+	return string.gsub(result, "\n", "")
+end
+
 function cli(parts)
 	local invocation = ''
 	for i=1, #parts do invocation = invocation .. parts[i] .. ' ' end
@@ -50,6 +56,16 @@ local resourcePath = r.GetResourcePath()
 local scriptPath = resourcePath .. '/Scripts'
 local reacomaVersion = '2.10.0'
 
+-- Get user consent
+local consent = r.ShowMessageBox(
+	'ReaCoMa Installer will now download and install the ReaCoMa package. This will require an internet connection and may take a moment.\n\nIt will download the ReaCoMa repository and copy it to the REAPER resource path and remove any existing versions of ReaCoMa. If you have any modifications or unsaved changes to the code, please cancel this script.',
+	'ReaCoMa Installer',
+	1
+)
+if consent == 2 then 
+	return
+end
+
 -- Check that ImGui is installed
 if not r.APIExists('ImGui_GetVersion') then
 	r.ShowMessageBox(
@@ -64,13 +80,13 @@ end
 -- Now check operating system and install
 local os = r.GetOS()
 if os == 'macOS-arm64' or os == 'OSX64' then
-	local outputPath = doubleQuotePath(scriptPath..'/output.dmg')
+	local outputPath = getTempDirUnix()..'reacoma.dmg'
 	local downloadCmd = cli({
 		'/usr/bin/curl',
 		'-L',
 		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.0/ReaCoMa.2.0.dmg',
 		'--output',
-		outputPath
+		doubleQuotePath(outputPath)
 	})
 
 	if downloadCmd.code == 0 then
@@ -85,7 +101,7 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 	cli({
 		'/usr/bin/hdiutil',
 		'attach',
-		outputPath
+		doubleQuotePath(outputPath)
 	})
 
 	cli({
@@ -103,7 +119,7 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 
 	cli({
 		'/bin/rm',
-		outputPath
+		doubleQuotePath(outputPath)
 	})
 elseif os == 'Win64' then
 	reaper.ShowMessageBox(
@@ -133,7 +149,7 @@ repeat
 until not retval
 
 reaper.ShowMessageBox(
-	'ReaCoMa was successfully installed.',
+	'ReaCoMa was successfully installed. For each tool an action has been added to the action list.',
 	'ReaCoMa Installation',
 	0
 )

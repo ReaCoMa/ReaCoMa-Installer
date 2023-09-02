@@ -11,11 +11,18 @@
 ]]
 
 local r = reaper
-local print = r.ShowConsoleMsg
+function print(p)
+	r.ShowConsoleMsg(p)
+	r.ShowConsoleMsg('\n')
+end
 
 -- A bunch of functions to make life simple
 function doubleQuotePath(path)
 	return '"'..path..'"'
+end
+
+function getFileExtension(filePath)
+    return filePath:match("%.([^.]+)$") or ''
 end
 
 function splitLine(string)
@@ -56,7 +63,6 @@ end
 
 -- Now check operating system and install
 local os = r.GetOS()
--- mac
 if os == 'macOS-arm64' or os == 'OSX64' then
 	local outputPath = doubleQuotePath(scriptPath..'/output.dmg')
 	local downloadCmd = cli({
@@ -99,12 +105,6 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 		'/bin/rm',
 		outputPath
 	})
-
-	reaper.ShowMessageBox(
-		'ReaCoMa was successfully installed.',
-		'ReaCoMa Installation',
-		0
-	)
 elseif os == 'Win64' then
 	reaper.ShowMessageBox(
 		'This installation method is not yet supported on Windows.',
@@ -119,3 +119,21 @@ elseif os == 'Other' then
 	)
 end
 
+-- Register ReaCoMa scripts as actions
+local reacomaPath = string.format('%s/ReaCoMa 2.0', scriptPath)
+
+local i = 0
+repeat
+	local retval = reaper.EnumerateFiles( reacomaPath, i )
+	if retval and getFileExtension(retval) == 'lua' then
+		local luaScriptPath = string.format('%s/%s', reacomaPath, retval)
+		reaper.AddRemoveReaScript(true, 0, luaScriptPath, true)
+	end
+	i = i + 1
+until not retval
+
+reaper.ShowMessageBox(
+	'ReaCoMa was successfully installed.',
+	'ReaCoMa Installation',
+	0
+)

@@ -53,7 +53,7 @@ end
 
 -- Constants
 local resourcePath = r.GetResourcePath()
-local scriptPath = resourcePath .. '/Scripts'
+local scriptPath = string.format('%s/Scripts', resourcePath)
 local reacomaVersion = '2.10.0'
 
 -- Get user consent

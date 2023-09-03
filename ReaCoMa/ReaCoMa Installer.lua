@@ -65,7 +65,6 @@ end
 -- Constants
 local resourcePath = r.GetResourcePath()
 local scriptPath = string.format('%s/Scripts', resourcePath)
-local reacomaVersion = '2.10.0'
 
 -- Get user consent
 local consent = r.ShowMessageBox(
@@ -107,7 +106,7 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 	local downloadCmd = cli({
 		'/usr/bin/curl',
 		'-L',
-		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.0/ReaCoMa.2.0.dmg',
+		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.1/ReaCoMa.2.0.dmg',
 		'--output',
 		doubleQuotePath(outputPath)
 	})
@@ -159,7 +158,7 @@ elseif os == 'Win64' then
 	local downloadCmd = cli({
 		'curl.exe',
 		'-L',
-		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.0/ReaCoMa.2.0.zip',
+		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.1/ReaCoMa.2.0.zip',
 		'--output',
 		doubleQuotePath(outputPath)
 	})
@@ -186,6 +185,10 @@ elseif os == 'Win64' then
 		print('failed to unzip')
 		return
 	end
+
+	local moveFiles = cli({
+		''
+	})
 elseif os == 'Other' then
 	reaper.ShowMessageBox(
 		'This installation method is not yet supported on Linux.',

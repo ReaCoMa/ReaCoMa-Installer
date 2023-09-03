@@ -81,6 +81,19 @@ end
 local os = r.GetOS()
 if os == 'macOS-arm64' or os == 'OSX64' then
 	local outputPath = getTempDirUnix()..'reacoma.dmg'
+
+	local checkCurlExists = cli({
+		'/usr/bin/which',
+		'curl'
+	})
+	if checkCurlExists.code ~= 0 then
+		reaper.ShowMessageBox(
+			'The curl command line executable does not exist on this machine or is in a non-standard location. It is needed to download ReaCoMa.',
+			'ReaCoMa Installation',
+			0
+		)
+		return
+	end
 	local downloadCmd = cli({
 		'/usr/bin/curl',
 		'-L',

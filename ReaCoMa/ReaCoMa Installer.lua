@@ -46,7 +46,7 @@ function cli(parts)
 	local shellOutput = r.ExecProcess(invocation, 0)
 	local result = splitLine(shellOutput)
 	return {
-		code = result[1],
+		code = tonumber(result[1]),
 		stdout = result[2]
 	}
 end

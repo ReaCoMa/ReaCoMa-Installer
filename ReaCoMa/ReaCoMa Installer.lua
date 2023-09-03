@@ -44,10 +44,21 @@ function cli(parts)
 	local invocation = ''
 	for i=1, #parts do invocation = invocation .. parts[i] .. ' ' end
 	local shellOutput = r.ExecProcess(invocation, 0)
+	if shellOutput == nil then
+		return {
+			code = -999,
+			stdout = 'Shell output failed in REAPER ExecProcess'
+		}
+	end
 	local result = splitLine(shellOutput)
+	local returnCode = tonumber(result[1]) or -999
+	local returnOutput = ''
+	for i=2, #result do
+		returnOutput = returnOutput .. result[i]
+	end
 	return {
-		code = tonumber(result[1]),
-		stdout = result[2]
+		code = returnCode,
+		stdout = returnOutput
 	}
 end
 
@@ -81,7 +92,6 @@ end
 local os = r.GetOS()
 if os == 'macOS-arm64' or os == 'OSX64' then
 	local outputPath = getTempDirUnix()..'reacoma.dmg'
-
 	local checkCurlExists = cli({
 		'/usr/bin/which',
 		'curl'
@@ -135,17 +145,54 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 		doubleQuotePath(outputPath)
 	})
 elseif os == 'Win64' then
-	reaper.ShowMessageBox(
-		'This installation method is not yet supported on Windows.',
-		'ReaCoMa Installation',
-		'0'
-	)
+	local outputPath = string.format('%s/reacoma.zip', scriptPath)
+	local checkCurlExists = cli({'curl', '--version'})
+	if checkCurlExists.code ~= 0 then
+		reaper.ShowMessageBox(
+			'The curl command line executable does not exist on this machine or is in a non-standard location. It is needed to download ReaCoMa.',
+			'ReaCoMa Installation',
+			0
+		)
+		return
+	end
+
+	local downloadCmd = cli({
+		'curl.exe',
+		'-L',
+		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.0/ReaCoMa.2.0.zip',
+		'--output',
+		doubleQuotePath(outputPath)
+	})
+
+	if downloadCmd.code ~= 0 then
+		reaper.ShowMessageBox(
+			'The installer failed to download the ReaCoMa release.',
+			'ReaCoMa Installation',
+			0
+		)
+		return
+	end
+
+	local unzipArchive = cli({
+		'powershell.exe',
+		'Expand-Archive',
+		'-Path',
+		doubleQuotePath(outputPath),
+		'-DestinationPath',
+		doubleQuotePath(scriptPath)
+	})
+
+	if unzipArchive.code ~= 0 then
+		print('failed to unzip')
+		return
+	end
 elseif os == 'Other' then
 	reaper.ShowMessageBox(
 		'This installation method is not yet supported on Linux.',
 		'ReaCoMa Installation',
 		'0'
 	)
+	return
 end
 
 -- Register ReaCoMa scripts as actions

@@ -102,7 +102,7 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 		doubleQuotePath(outputPath)
 	})
 
-	if downloadCmd.code == 0 then
+	if downloadCmd.code ~= 0 then
 		reaper.ShowMessageBox(
 			'The installer failed to download the ReaCoMa release.',
 			'ReaCoMa Installation',

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="ReaCoMa Installer" commit="ddd0a755302ddc8653dd5306369f8550ab4d08ed">
+<index version="1" name="ReaCoMa Installer" commit="5e0d1cedc9c10f46e0fbaaef79bde88ac42c5adf">
   <category name="ReaCoMa">
     <reapack name="ReaCoMa Installer.lua" type="script" desc="ReaCoMa Installer">
       <metadata>
@@ -17,6 +17,9 @@
       </version>
       <version name="0.0.3" author="James Bradbury" time="2023-10-25T04:24:33Z">
         <source main="main">https://github.com/jamesb93/ReaCoMa-Installer/raw/ddd0a755302ddc8653dd5306369f8550ab4d08ed/ReaCoMa/ReaCoMa%20Installer.lua</source>
+      </version>
+      <version name="0.0.4" author="James Bradbury" time="2023-11-08T11:11:30Z">
+        <source main="main">https://github.com/jamesb93/ReaCoMa-Installer/raw/5e0d1cedc9c10f46e0fbaaef79bde88ac42c5adf/ReaCoMa/ReaCoMa%20Installer.lua</source>
       </version>
     </reapack>
   </category>

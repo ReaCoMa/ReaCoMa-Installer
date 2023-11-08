@@ -1,7 +1,7 @@
 --[[
 @author James Bradbury
 @description ReaCoMa Installer
-@version 0.0.3
+@version 0.0.4
 @provides
 	[main] ReaCoMa Installer.lua
 @about
@@ -106,7 +106,7 @@ if os == 'macOS-arm64' or os == 'OSX64' then
 	local downloadCmd = cli({
 		'/usr/bin/curl',
 		'-L',
-		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.2/ReaCoMa.2.0.dmg',
+		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.3/ReaCoMa.2.0.dmg',
 		'--output',
 		doubleQuotePath(outputPath)
 	})
@@ -158,7 +158,7 @@ elseif os == 'Win64' then
 	local downloadCmd = cli({
 		'curl.exe',
 		'-L',
-		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.2/ReaCoMa.2.0.zip',
+		'https://github.com/ReaCoMa/ReaCoMa-2.0/releases/download/2.10.3/ReaCoMa.2.0.zip',
 		'--output',
 		doubleQuotePath(outputPath)
 	})

@@ -1,7 +1,7 @@
 --[[
 @author James Bradbury
 @description ReaCoMa Installer
-@version 0.0.4
+@version 0.0.5
 @provides
 	[main] ReaCoMa Installer.lua
 @about

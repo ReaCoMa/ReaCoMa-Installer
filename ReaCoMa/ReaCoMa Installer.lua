@@ -178,7 +178,8 @@ elseif os == 'Win64' then
 		'-Path',
 		doubleQuotePath(outputPath),
 		'-DestinationPath',
-		doubleQuotePath(scriptPath)
+		doubleQuotePath(scriptPath),
+		'-Force'
 	})
 
 	if unzipArchive.code ~= 0 then

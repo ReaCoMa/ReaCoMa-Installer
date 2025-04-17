@@ -23,13 +23,13 @@ Then, synchronise ReaPack packages. This makes sure that it is up to date with t
 <img src='assets/4-sync.jpg' alt='' />
 
 ### Install ReaCoMa Installer Script
-Lastly, search for *reacoma* and you should see the ReaCoMa Installer script.
+Lastly, from the "Browse Packages" area of ReaPack, search for *reacoma* and you should see the ReaCoMa Installer script.
 <img src='assets/5-select.jpg' alt='' />
 
 Right click and install ReaCoMa Installer, hit apply, and then follow the successive promots.
 <img src='assets/6-install.jpg' alt='' />
 
-To run the script, you can use the action in the action menu which is automatically registered.
+To run the script, you can search for the script which is automatically registered as an "action" and run the action by pressing "Run".
 <img src='assets/7-final.jpg' alt='' />
 
 That's it! 🎉🎉🎉
